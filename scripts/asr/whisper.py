@@ -2,6 +2,7 @@
 
 import torch
 from faster_whisper import WhisperModel
+from dotenv import dotenv_values
 
 import sys
 import os
@@ -15,6 +16,7 @@ _model = None
 
 
 def get_model(model_size):
+    CONFIG = dotenv_values(".env")  # config = {"SCRATCH_DIR"}
     global _model, _model_size
 
     if _model is not None and model_size == _model_size:
@@ -23,10 +25,10 @@ def get_model(model_size):
     _model_size = model_size
     if torch.cuda.is_available():
         # Run on GPU with FP16
-        _model = WhisperModel(model_size, device="cuda", compute_type="float16")
+        _model = WhisperModel(model_size, device="cuda", compute_type="float16", cache_dir=CONFIG.get("SCRATCH_DIR"))
     else:
         # Run on CPU with INT8
-        _model = WhisperModel(model_size, device="cpu", compute_type="int8")
+        _model = WhisperModel(model_size, device="cpu", compute_type="int8", cache_dir=CONFIG.get("SCRATCH_DIR"))
 
     return _model
 

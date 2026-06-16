@@ -7,6 +7,7 @@ import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from core.audio import audio_record_to_array, audio_file_to_array, TARGET_SAMPLE_RATE
+from dotenv import dotenv_values
 
 import torch
 import numpy as np
@@ -22,7 +23,7 @@ model_id = "facebook/mms-1b-all"
 # model_id = "mms-meta/mms-zeroshot-300m"
 
 processor = AutoProcessor.from_pretrained(model_id)
-model = Wav2Vec2ForCTC.from_pretrained(model_id).to(DEVICE)  # type: ignore
+model = Wav2Vec2ForCTC.from_pretrained(model_id, cache_dir = dotenv_values(".env")['CACHE_DIR']).to(DEVICE)  # type: ignore
 
 SUPPORTED_LANGUAGES = processor.tokenizer.vocab.keys()
 
