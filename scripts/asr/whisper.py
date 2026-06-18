@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import torch
-from faster_whisper import WhisperModel
+# from faster_whisper import WhisperModel
 from transformers import WhisperForConditionalGeneration, WhisperProcessor
 from dotenv import dotenv_values
 
@@ -39,7 +39,8 @@ def get_model(model_size):
         _model.to("cuda" if torch.cuda.is_available() else "cpu")
     else:
         # Run on CPU with INT8
-        _model = WhisperModel(model_size, device="cpu", compute_type="int8", cache_dir=CONFIG.get("SCRATCH_DIR"))
+        # _model = WhisperModel(model_size, device="cpu", compute_type="int8", cache_dir=CONFIG.get("SCRATCH_DIR"))
+        raise NotImplementedError("CPU inference is not implemented yet. Please use a GPU for Whisper ASR.")
 
     return _model
 
