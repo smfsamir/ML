@@ -7,7 +7,7 @@ import os
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from core.audio import audio_file_to_array, audio_record_to_array, TARGET_SAMPLE_RATE
+from core.audio import audio_file_to_array, TARGET_SAMPLE_RATE
 
 import torch
 import numpy as np

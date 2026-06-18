@@ -10,7 +10,7 @@ from io import BytesIO
 
 import ffmpeg
 import numpy as np
-import sounddevice as sd
+# import sounddevice as sd
 import scipy.io.wavfile as wavfile
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -264,18 +264,18 @@ def audio_file_to_array(
     return data
 
 
-def audio_array_play(input_array, sample_rate=TARGET_SAMPLE_RATE):
-    sd.play(input_array, sample_rate)
-    sd.wait()
+# def audio_array_play(input_array, sample_rate=TARGET_SAMPLE_RATE):
+#     sd.play(input_array, sample_rate)
+#     sd.wait()
 
 
-def audio_wav_file_play(input_path, start_sec=None, end_sec=None):
-    print(start_sec, end_sec)
-    rate, data = wavfile.read(input_path)
-    start = int(float(start_sec) * rate) if start_sec else 0
-    end = int(float(end_sec) * rate) if end_sec else len(data)
-    data = data[start:end]
-    audio_array_play(data, rate)
+# def audio_wav_file_play(input_path, start_sec=None, end_sec=None):
+#     print(start_sec, end_sec)
+#     rate, data = wavfile.read(input_path)
+#     start = int(float(start_sec) * rate) if start_sec else 0
+#     end = int(float(end_sec) * rate) if end_sec else len(data)
+#     data = data[start:end]
+#     audio_array_play(data, rate)
 
 
 def audio_wav_file_crop(input_path, start_sec, end_sec, output_path):
@@ -286,24 +286,24 @@ def audio_wav_file_crop(input_path, start_sec, end_sec, output_path):
     audio_array_to_wav_file(data, output_path, rate)
 
 
-def audio_record_to_array(output_sample_rate=TARGET_SAMPLE_RATE):
-    print("Recording, please speak and press Ctrl+C when done")
-    samples = np.array([], dtype=np.int16)
-    try:
-        with sd.InputStream(
-            channels=1, dtype="int16", samplerate=output_sample_rate
-        ) as s:
-            while True:
-                sample, _ = s.read(output_sample_rate)
-                samples = np.append(samples, sample.reshape(-1))
-    except KeyboardInterrupt:
-        print("Recording stopped")
-    return samples
+# def audio_record_to_array(output_sample_rate=TARGET_SAMPLE_RATE):
+#     print("Recording, please speak and press Ctrl+C when done")
+#     samples = np.array([], dtype=np.int16)
+#     try:
+#         with sd.InputStream(
+#             channels=1, dtype="int16", samplerate=output_sample_rate
+#         ) as s:
+#             while True:
+#                 sample, _ = s.read(output_sample_rate)
+#                 samples = np.append(samples, sample.reshape(-1))
+#     except KeyboardInterrupt:
+#         print("Recording stopped")
+#     return samples
 
 
-def audio_record_to_file(output_path, output_sample_rate=TARGET_SAMPLE_RATE):
-    samples = audio_record_to_array(output_sample_rate)
-    audio_array_to_wav_file(samples, output_path, output_sample_rate)
+# def audio_record_to_file(output_path, output_sample_rate=TARGET_SAMPLE_RATE):
+#     samples = audio_record_to_array(output_sample_rate)
+#     audio_array_to_wav_file(samples, output_path, output_sample_rate)
 
 
 def audio_array_float64_to_int16(audio_data_float64):
@@ -335,36 +335,36 @@ def audio_array_clip(
     )
 
 
-def audio_stream_microphone(
-    on_block,
-    block_size=512,
-    sample_rate=TARGET_SAMPLE_RATE,
-    timeout=lambda: time.sleep(60),
-):
-    def callback(indata: np.ndarray, frames: int, time, status):
-        """This function is called for each audio block."""
-        if status:
-            print(status)  # Print any warnings or errors
-        assert frames == block_size
+# def audio_stream_microphone(
+#     on_block,
+#     block_size=512,
+#     sample_rate=TARGET_SAMPLE_RATE,
+#     timeout=lambda: time.sleep(60),
+# ):
+#     def callback(indata: np.ndarray, frames: int, time, status):
+#         """This function is called for each audio block."""
+#         if status:
+#             print(status)  # Print any warnings or errors
+#         assert frames == block_size
 
-        on_block(indata.T[0])
+#         on_block(indata.T[0])
 
-    print("Starting audio stream... Press Ctrl+C to stop.")
+#     print("Starting audio stream... Press Ctrl+C to stop.")
 
-    try:
-        with sd.InputStream(
-            samplerate=sample_rate,
-            channels=1,
-            dtype="int16",
-            blocksize=block_size,
-            callback=callback,
-        ):
-            # Keep the stream open for a timeout or until interrupted
-            timeout()
-    except KeyboardInterrupt:
-        print("\nAudio stream stopped.")
-    except Exception as e:
-        print(f"\nAn error occurred: {e}")
+#     try:
+#         with sd.InputStream(
+#             samplerate=sample_rate,
+#             channels=1,
+#             dtype="int16",
+#             blocksize=block_size,
+#             callback=callback,
+#         ):
+#             # Keep the stream open for a timeout or until interrupted
+#             timeout()
+#     except KeyboardInterrupt:
+#         print("\nAudio stream stopped.")
+#     except Exception as e:
+#         print(f"\nAn error occurred: {e}")
 
 
 def main(args):

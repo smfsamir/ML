@@ -5,7 +5,6 @@ from tempfile import NamedTemporaryFile
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from core.audio import (
     audio_array_to_wav_file,
-    audio_record_to_array,
     TARGET_SAMPLE_RATE,
 )
 import librosa

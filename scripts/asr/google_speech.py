@@ -9,7 +9,7 @@ import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from core.gcs import get_gcs_uri, create_temp_object_from_bytes
-from core.audio import audio_record_to_array, audio_array_to_bytes, TARGET_SAMPLE_RATE
+from core.audio import audio_array_to_bytes, TARGET_SAMPLE_RATE
 from core.load_secrets import load_secrets
 
 load_secrets()

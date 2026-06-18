@@ -8,7 +8,7 @@ import subprocess
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from core.audio import audio_record_to_array, audio_file_to_array
+from core.audio import audio_file_to_array
 
 MODEL_DIR = os.path.join(os.path.dirname(__file__), "..", "..", "models", "deepspeech")
 MODEL_PATH = os.path.join(MODEL_DIR, "model.tflite")

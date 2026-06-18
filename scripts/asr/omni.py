@@ -6,7 +6,7 @@ import os
 import sys
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from core.audio import audio_record_to_file, audio_array_to_wav_file, TARGET_SAMPLE_RATE
+from core.audio import audio_array_to_wav_file, TARGET_SAMPLE_RATE
 
 from tempfile import NamedTemporaryFile
 

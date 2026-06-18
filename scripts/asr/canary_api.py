@@ -6,7 +6,7 @@ from tempfile import NamedTemporaryFile
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 from core.s3 import get_presigned_url, create_temp_object
-from core.audio import audio_record_to_array, audio_array_to_wav_file
+from core.audio import audio_array_to_wav_file
 
 
 def canary_transcribe_file(audio_path):
