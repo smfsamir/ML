@@ -10,7 +10,7 @@ from transformers import AutoModelForSpeechSeq2Seq, AutoProcessor, pipeline
 from dotenv import dotenv_values
 
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-from core.audio import audio_record_to_file
+# from core.audio import audio_record_to_file
 
 TARGET_SR = 16000
 
