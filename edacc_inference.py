@@ -58,6 +58,9 @@ CONFIG = dotenv_values(".env")  # config = {"SCRATCH_DIR"}
 MODEL_WEIGHT_DIR = os.path.join(CONFIG["SCRATCH_DIR"], "model_weights")
 DATASET_DIR = os.path.join(CONFIG["SCRATCH_DIR"], "datasets")
 
+with open("spelling_variants.json") as f:
+    SPELLING_VARIANTS = json.load(f)
+
 # from https://github.com/huggingface/open_asr_leaderboard/blob/main/normalizer/normalizer.py
 def normalize_english_numbers(text: str):
     """Convert any spelled-out numbers into arabic numbers, remove any commas, keep the suffixes such as: `1960s`, `274th`, `32nd`, etc.,
