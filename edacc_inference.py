@@ -37,6 +37,7 @@ Requirements:
 """
 
 from dotenv import dotenv_values
+import traceback
 import argparse
 import gc
 import json
@@ -742,6 +743,9 @@ def main():
         except Exception as e:
             print(f"  Model {model_name} crashed: {type(e).__name__}: {e}")
             print("  Skipping to next model. Already-saved results for this model are preserved.")
+            # print traceback for debugging, but keep going so one bad model doesn't kill the whole run
+            traceback.print_exc()
+
 
         finally:
             # Drop the reference to the loaded model/transcribe_fn and force
