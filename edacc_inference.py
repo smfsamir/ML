@@ -611,7 +611,7 @@ def get_models():
     Model = namedtuple('Model', ['name', 'release_date', 'load_fn'])
 
     models = [
-        Model('Whisper Large v1', '2022-09', lambda: _load_whisper('large-v1')),
+        Model('Whisper Large v1', '2022-09', lambda: _load_whisper('large')),
         Model('Whisper Large v2', '2022-12', lambda: _load_whisper('large-v2')),
         Model('MMS 1B All',       '2023-05', _load_mms),
         Model('Whisper Large v3', '2023-11', lambda: _load_whisper('large-v3')),
