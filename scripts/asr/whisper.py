@@ -42,6 +42,8 @@ def get_model(model_size):
     model.to(device)
 
     processor = AutoProcessor.from_pretrained(model_id, cache_dir=CONFIG.get("SCRATCH_DIR"))
+    processor.tokenizer.clean_up_tokenization_spaces = False
+
 
     _pipe = pipeline(
         "automatic-speech-recognition",
@@ -49,8 +51,7 @@ def get_model(model_size):
         tokenizer=processor.tokenizer,
         feature_extractor=processor.feature_extractor,
         torch_dtype=torch_dtype,
-        device=device,
-        chunk_length_s=30,   # enables audio longer than Whisper's 30s window
+        device=device
     )
     return _pipe
 
