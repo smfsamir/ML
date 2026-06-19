@@ -513,7 +513,7 @@ def get_preprocessed_dataset(args):
         accent = row["accent"]
         q1, q3 = bounds[accent]
         duration_s = len(row["audio"]["array"]) / row["audio"]["sampling_rate"]
-        return q1 <= duration_s <= q3
+        return q1 <= duration_s <= q3 and duration_s <= 30
 
     ds = ds.filter(interquartile_filter, num_proc=args.num_proc)
     print(f"After interquartile filter: {len(ds)}")
